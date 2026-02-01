@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Studies - Autoneties AI Success Stories</title>
+    <meta name="description"
+        content="See how Autoneties has transformed businesses across Chemical, Banking, Real Estate, IT, Healthcare, and Agriculture industries with AI automation.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d0d0d;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .text-blue-accent {
+            color: #0066FF;
+        }
+
+        .border-blue-accent {
+            border-color: #0066FF;
+        }
+
+        /* Card hover effects */
+        .case-card {
+            transition: all 0.5s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 102, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 102, 255, 0.2);
+        }
+
+        /* Filter button active state */
+        .filter-btn.active {
+            background: #0066FF;
+            color: #fff;
+            border-color: #0066FF;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Box hover effect */
+        .case-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 102, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 102, 255, 0.2);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Matrix canvas background */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        /* Grey background utility */
+        .bg-white-3 {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .border-white-5 {
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .border-white-10 {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Matrix Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/5 z-50">
+        <div class="max-w-screen-2xl mx-auto px-8 lg:px-16 py-4 flex justify-between items-center">
+            <a href="index.html"
+                class="text-xl font-bold tracking-tight text-white hover:text-blue-accent transition-all duration-300">
+                AUTONETIES
+            </a>
+            <div class="flex gap-1 items-center">
+                <a href="index.html#platform"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Solution
+                </a>
+                <a href="vision.html"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Vision
+                </a>
+                <a href="case-studies.html"
+                    class="px-4 py-2 text-sm font-semibold text-black bg-white rounded-lg shadow-lg shadow-blue-accent/40">
+                    Case Studies
+                </a>
+                <a href="contact.html"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Contact Us
+                </a>
+                <a href="verify-project.html"
+                    class="ml-2 px-5 py-2 text-sm font-semibold text-black bg-white rounded-lg shadow-lg shadow-blue-accent/40 hover:shadow-xl hover:shadow-blue-accent/60 transition-all duration-300">
+                    Verify Project
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Matrix Rain Effect
+        const MatrixRain = () => {
+            useEffect(() => {
+                const canvas = document.getElementById('matrix-canvas');
+                const ctx = canvas.getContext('2d');
+
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+                const fontSize = 14;
+                const columns = canvas.width / fontSize;
+                const drops = Array(Math.floor(columns)).fill(1);
+
+                const draw = () => {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = fontSize + 'px monospace';
+
+                    for (let i = 0; i < drops.length; i++) {
+                        const text = chars[Math.floor(Math.random() * chars.length)];
+                        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                            drops[i] = 0;
+                        }
+                        drops[i]++;
+                    }
+                };
+
+                const interval = setInterval(draw, 33);
+                const handleResize = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+
+                window.addEventListener('resize', handleResize);
+                return () => {
+                    clearInterval(interval);
+                    window.removeEventListener('resize', handleResize);
+                };
+            }, []);
+            return null;
+        };
+
+        const CaseStudiesPage = () => {
+            const [activeFilter, setActiveFilter] = useState('all');
+
+            const caseStudies = [
+                {
+                    id: 1,
+                    industry: 'banking',
+                    company: 'Fortune 500 Banking Institution',
+                    title: 'Fraud Detection Revolution',
+                    problem: 'Manual fraud detection was missing 40% of fraudulent transactions while flagging too many false positives, causing customer friction and revenue loss.',
+                    solution: 'Deployed AI-powered fraud detection system with real-time pattern recognition, behavioral analytics, and automated risk scoring across all transaction channels.',
+                    results: [
+                        { metric: '$42M', label: 'Fraud Prevented' },
+                        { metric: '90%', label: 'Reduction in False Positives' },
+                        { metric: '<200ms', label: 'Detection Speed' }
+                    ],
+                    timeline: '4 months',
+                    testimonial: 'Autoneties transformed our entire risk management infrastructure. The ROI was immediate and continues to compound.',
+                    roi: '580%'
+                },
+                {
+                    id: 2,
+                    industry: 'chemical',
+                    company: 'Global Chemical Manufacturer',
+                    title: 'Molecular Discovery Acceleration',
+                    problem: 'R&D cycles took 18-24 months per compound, with high failure rates and massive resource waste in traditional testing methods.',
+                    solution: 'Implemented AI-driven predictive modeling for molecular synthesis, automated lab testing workflows, and intelligent compound screening.',
+                    results: [
+                        { metric: '45%', label: 'Faster Time-to-Market' },
+                        { metric: '$8.2M', label: 'Annual R&D Savings' },
+                        { metric: '3x', label: 'Discovery Success Rate' }
+                    ],
+                    timeline: '6 months',
+                    testimonial: "Our competitors are still using traditional methods while we're discovering viable compounds 3x faster.",
+                    roi: '420%'
+                },
+                {
+                    id: 3,
+                    industry: 'realestate',
+                    company: 'Commercial Real Estate Portfolio',
+                    title: 'Property Management Automation',
+                    problem: 'Managing 2,500+ properties required massive overhead, slow tenant response times, and inefficient maintenance scheduling.',
+                    solution: 'Deployed AI agents for tenant communication, automated maintenance scheduling, predictive equipment failure detection, and lease optimization.',
+                    results: [
+                        { metric: '72%', label: 'Operational Cost Reduction' },
+                        { metric: '<15min', label: 'Avg Response Time' },
+                        { metric: '95%', label: 'Tenant Satisfaction' }
+                    ],
+                    timeline: '5 months',
+                    testimonial: 'We went from 80 property managers to 25, while improving service quality dramatically.',
+                    roi: '680%'
+                },
+                {
+                    id: 4,
+                    industry: 'healthcare',
+                    company: 'Regional Healthcare Network',
+                    title: 'Patient Care Intelligence',
+                    problem: 'Administrative burden consumed 65% of staff time, delaying patient care and causing documentation errors.',
+                    solution: 'Automated patient intake, medical records processing, appointment scheduling, and insurance verification with HIPAA-compliant AI systems.',
+                    results: [
+                        { metric: '68%', label: 'Admin Time Saved' },
+                        { metric: '92%', label: 'Documentation Accuracy' },
+                        { metric: '40%', label: 'More Patient Time' }
+                    ],
+                    timeline: '7 months',
+                    testimonial: 'Our doctors now spend time healing, not filling out forms. Patient outcomes have never been better.',
+                    roi: '340%'
+                },
+                {
+                    id: 5,
+                    industry: 'it',
+                    company: 'Enterprise SaaS Company',
+                    title: 'Customer Success Automation',
+                    problem: "Support team couldn't scale with growth, leading to 48hr + response times and 15% churn rate.",
+                    solution: 'Implemented AI-powered support automation, intelligent ticket routing, proactive issue detection, and personalized customer success workflows.',
+                    results: [
+                        { metric: '85%', label: 'Faster Resolution' },
+                        { metric: '8%', label: 'Churn Rate (was 15%)' },
+                        { metric: '4.8/5', label: 'Customer Satisfaction' }
+                    ],
+                    timeline: '3 months',
+                    testimonial: 'Our support team went from firefighting to strategic customer success. Revenue retention skyrocketed.',
+                    roi: '520%'
+                },
+                {
+                    id: 6,
+                    industry: 'agriculture',
+                    company: 'Large-Scale Agricultural Operation',
+                    title: 'Precision Farming Intelligence',
+                    problem: 'Crop yields were unpredictable, resource waste was high, and manual monitoring across 10,000+ acres was impossible.',
+                    solution: 'Deployed IoT sensors with AI analytics for soil health, crop monitoring, irrigation optimization, and predictive yield forecasting.',
+                    results: [
+                        { metric: '38%', label: 'Yield Increase' },
+                        { metric: '60%', label: 'Water Savings' },
+                        { metric: '$3.2M', label: 'Annual Profit Boost' }
+                    ],
+                    timeline: '8 months',
+                    testimonial: "We know exactly what every acre needs, when it needs it. It's farming from the future.",
+                    roi: '450%'
+                },
+                {
+                    id: 7,
+                    industry: 'energy',
+                    company: 'Renewable Energy Grid Operator',
+                    title: 'Smart Grid Optimization',
+                    problem: 'Energy distribution was inefficient, leading to 30% waste, unpredictable load balancing, and frequent outages during peak demand.',
+                    solution: 'Deployed AI-powered grid management with real-time load prediction, automated energy routing, and renewable source integration optimization.',
+                    results: [
+                        { metric: '74%', label: 'Waste Reduction' },
+                        { metric: '$12M', label: 'Annual Savings' },
+                        { metric: '99.8%', label: 'Uptime Achieved' }
+                    ],
+                    timeline: '9 months',
+                    testimonial: 'AI turned our renewable grid from unpredictable chaos into a self-optimizing powerhouse.',
+                    roi: '510%'
+                },
+                {
+                    id: 8,
+                    industry: 'cybersecurity',
+                    company: 'Fortune 100 Technology Company',
+                    title: 'Threat Detection & Response',
+                    problem: 'Security team faced 50,000+ daily alerts, 72-hour average response time, and missed 60% of sophisticated threats.',
+                    solution: 'Implemented AI-driven threat intelligence with behavioral analysis, automated incident response, and predictive attack prevention.',
+                    results: [
+                        { metric: '94%', label: 'Threat Detection Rate' },
+                        { metric: '<5min', label: 'Response Time' },
+                        { metric: '0', label: 'Breaches in 18mo' }
+                    ],
+                    timeline: '5 months',
+                    testimonial: 'From drowning in alerts to stopping threats before they materialize. This is security from 2030.',
+                    roi: '890%'
+                },
+                {
+                    id: 9,
+                    industry: 'ecommerce',
+                    company: 'Multi-Brand E-commerce Platform',
+                    title: 'Conversion Optimization Engine',
+                    problem: 'Cart abandonment at 78%, poor product recommendations, and generic customer experiences were killing revenue.',
+                    solution: 'Built AI personalization engine with predictive analytics, dynamic pricing, abandoned cart recovery, and hyper-targeted recommendations.',
+                    results: [
+                        { metric: '156%', label: 'Conversion Increase' },
+                        { metric: '3.2x', label: 'Average Order Value' },
+                        { metric: '$28M', label: 'Additional Revenue' }
+                    ],
+                    timeline: '4 months',
+                    testimonial: 'Every customer now feels like our homepage was built just for them. Revenue exploded.',
+                    roi: '720%'
+                },
+                {
+                    id: 10,
+                    industry: 'fintech',
+                    company: 'Digital Banking Startup',
+                    title: 'Intelligent Credit Underwriting',
+                    problem: 'Traditional credit scoring rejected 45% of viable customers while approving risky ones, causing both lost revenue and defaults.',
+                    solution: 'Deployed ML-powered alternative credit scoring using 500+ behavioral data points, real-time risk assessment, and dynamic limit adjustment.',
+                    results: [
+                        { metric: '82%', label: 'More Approvals' },
+                        { metric: '65%', label: 'Lower Default Rate' },
+                        { metric: '$91M', label: 'Loan Volume Increase' }
+                    ],
+                    timeline: '6 months',
+                    testimonial: 'We went from guessing creditworthiness to knowing it. Our loss ratio dropped while volume tripled.',
+                    roi: '1240%'
+                },
+                {
+                    id: 11,
+                    industry: 'robotics',
+                    company: 'Warehouse Automation Company',
+                    title: 'Autonomous Fleet Coordination',
+                    problem: 'Manual warehouse operations with 200+ robots caused constant collisions, inefficient routing, and 40% idle time.',
+                    solution: 'Implemented AI swarm intelligence for autonomous coordination, predictive maintenance, and self-optimizing pick paths.',
+                    results: [
+                        { metric: '310%', label: 'Throughput Increase' },
+                        { metric: '92%', label: 'Collision Reduction' },
+                        { metric: '4x', label: 'ROI in Year 1' }
+                    ],
+                    timeline: '7 months',
+                    testimonial: "Our robots now operate like a hive mind. It's mesmerizing to watch them orchestrate perfectly.",
+                    roi: '840%'
+                },
+                {
+                    id: 12,
+                    industry: 'restaurant',
+                    company: '50-Location Restaurant Chain',
+                    title: 'Demand Forecasting & Inventory',
+                    problem: 'Food waste at 35%, constant stockouts of popular items, and labor scheduling chaos were crushing margins.',
+                    solution: 'Built AI system for demand prediction, automated ordering, dynamic menu pricing, and intelligent staff scheduling.',
+                    results: [
+                        { metric: '88%', label: 'Waste Reduction' },
+                        { metric: '$4.2M', label: 'Annual Profit Boost' },
+                        { metric: '23%', label: 'Labor Cost Savings' }
+                    ],
+                    timeline: '3 months',
+                    testimonial: 'We know exactly what to make, when to make it, and who should make it. Profits soared.',
+                    roi: '620%'
+                },
+                {
+                    id: 13,
+                    industry: 'education',
+                    company: 'Online University (120K Students)',
+                    title: 'Adaptive Learning Platforms',
+                    problem: 'One-size-fits-all curriculum led to 58% dropout rate, poor engagement, and students struggling at wildly different paces.',
+                    solution: 'Deployed AI-powered adaptive learning with personalized curriculum paths, automated grading, and predictive intervention for at-risk students.',
+                    results: [
+                        { metric: '71%', label: 'Completion Rate (was 42%)' },
+                        { metric: '2.3x', label: 'Student Engagement' },
+                        { metric: '89%', label: 'Satisfaction Score' }
+                    ],
+                    timeline: '10 months',
+                    testimonial: 'Every student now learns at their own pace with their own path. Outcomes have never been better.',
+                    roi: '380%'
+                },
+                {
+                    id: 14,
+                    industry: 'logistics',
+                    company: 'National Shipping Network',
+                    title: 'Route Optimization & Fleet Management',
+                    problem: 'Inefficient routing cost $18M annually, delivery times were unpredictable, and customer satisfaction was at 67%.',
+                    solution: 'Implemented AI route optimization with real-time traffic integration, predictive delivery windows, and autonomous dispatch.',
+                    results: [
+                        { metric: '44%', label: 'Fuel Cost Reduction' },
+                        { metric: '96%', label: 'On-Time Delivery' },
+                        { metric: '18.5min', label: 'Avg Time Saved/Route' }
+                    ],
+                    timeline: '8 months',
+                    testimonial: 'Routes that took 3 hours now take 90 minutes. Fuel costs plummeted. Customers are ecstatic.',
+                    roi: '550%'
+                },
+                {
+                    id: 15,
+                    industry: 'manufacturing',
+                    company: 'Electronics Manufacturing Plant',
+                    title: 'Predictive Maintenance & Quality Control',
+                    problem: 'Unplanned downtime cost $2.5M monthly, defect rate was 8%, and maintenance was purely reactive.',
+                    solution: 'Deployed IoT sensors with AI-powered predictive maintenance, real-time quality detection, and automated production optimization.',
+                    results: [
+                        { metric: '87%', label: 'Downtime Reduction' },
+                        { metric: '94%', label: 'Fewer Defects' },
+                        { metric: '$24M', label: 'Annual Savings' }
+                    ],
+                    timeline: '11 months',
+                    testimonial: 'We fix equipment before it breaks. Quality is near-perfect. Production never stops.',
+                    roi: '760%'
+                }
+            ];
+
+            const industries = [
+                { id: 'all', name: 'All Industries' },
+                { id: 'banking', name: 'Banking & Finance' },
+                { id: 'chemical', name: 'Chemical' },
+                { id: 'realestate', name: 'Real Estate' },
+                { id: 'healthcare', name: 'Healthcare & Biotech' },
+                { id: 'it', name: 'IT & Technology' },
+                { id: 'agriculture', name: 'Agriculture' },
+                { id: 'energy', name: 'Clean Energy' },
+                { id: 'cybersecurity', name: 'Cybersecurity' },
+                { id: 'ecommerce', name: 'E-commerce' },
+                { id: 'fintech', name: 'Fintech' },
+                { id: 'robotics', name: 'Robotics' },
+                { id: 'restaurant', name: 'Restaurant' },
+                { id: 'education', name: 'Education' },
+                { id: 'logistics', name: 'Transportation' },
+                { id: 'manufacturing', name: 'Manufacturing' }
+            ];
+
+            const filteredCases = activeFilter === 'all'
+                ? caseStudies
+                : caseStudies.filter(c => c.industry === activeFilter);
+
+            return (
+                <div>
+                    <MatrixRain />
+                    {/* Hero Section */}
+                    <section className="pt-32 pb-20 px-8">
+                        <div className="max-w-7xl mx-auto w-full">
+                            <div className="text-center mb-16 fade-in-up">
+                                <span className="text-xs tracking-[0.3em] font-mono text-white/40 block mb-6">SUCCESS_STORIES</span>
+                                <h1 className="text-6xl md:text-7xl font-light mb-6 leading-tight">
+                                    Real Results,<br />
+                                    <span className="text-blue-accent">Real Impact</span>
+                                </h1>
+                                <p className="text-xl text-white/60 max-w-3xl mx-auto">
+                                    See how we've transformed operations across fifteen industries with AI automation that delivers measurable ROI.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Industries Overview Section */}
+                    <section className="py-20 px-8 border-t border-white-10 bg-white-3">
+
+
+                        <div className="max-w-7xl mx-auto">
+                            <div className="text-center mb-16">
+                                <h2 className="text-4xl md:text-5xl font-light mb-4">
+                                    <span className="text-blue-accent">15 Industries</span>, Infinite Possibilities
+                                </h2>
+                                <p className="text-lg text-white/60 max-w-3xl mx-auto">
+                                    From molecules to money, soil to servers-our AI doesn't just optimize, it transforms.
+                                    Here's how we're revolutionizing each sector.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Chemical</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Predictive R&D Acceleration</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI predictive modeling: 38% faster compound discovery, $6.2M annual R&D savings, 3.9% CAGR growth.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$5.82T</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">285%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 2L2 7v2h20V7L12 2zM4 11v8h2v-8H4zm5 0v8h2v-8H9zm5 0v8h2v-8h-2zm5 0v8h2v-8h-2zM2 21h20v2H2v-2z" fill="currentColor" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Banking & Finance</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Fraud Detection & Risk</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        Real-time AI prevents $42M in fraud, reduces false positives 90%, sub-200ms detection.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$33.5T</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">286%</div>
+                                            <div className="text-white/40">2Yr ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Real Estate</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Intelligent Property Management</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI automation: 2,500+ properties managed, 28% cost reduction, 7.2% CAGR through 2033.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$222B</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">210%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Healthcare & Biotech</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Administrative Automation</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI automation: 60% of investment focus, 36% physician adoption, 68% admin workload reduction (HIPAA-compliant).
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$72.1B</div>
+                                            <div className="text-white/40">Automation</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">275%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">IT & Technology</h3>
+                                    <div className="text-xs text-blue-accent mb-3">AI-Powered Customer Success</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        Intelligent automation: 85% faster support resolution, churn reduced 15% to 8%, $12B AI  services market.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$5.12B</div>
+                                            <div className="text-white/40">Banking AI</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">425%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Agriculture</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Precision Farming AI</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        IoT + AI analytics: 38% yield increase, 60% water savings, $3.2M profit boost, satellite-powered insights.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$2.1T</div>
+                                            <div className="text-white/40">Global Ag</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">390%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Clean Energy</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Smart Grid AI Optimization</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI grid management: 74% waste reduction, $12M savings, 99.8% uptime, real-time load balancing.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$1.5T</div>
+                                            <div className="text-white/40">Clean Tech</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">410%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Cybersecurity</h3>
+                                    <div className="text-xs text-blue-accent mb-3">AI Threat Detection</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI threat intelligence: 87-94% detection rate, 52% reduced workload, $2.2M breach cost savings (IBM 2024).
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$25.4B</div>
+                                            <div className="text-white/40">AI Sec</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">286%</div>
+                                            <div className="text-white/40">2Yr ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">E-commerce</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Conversion Optimization</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI personalization: 156% conversion increase, 3.2x order value, $28M revenue.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$6.3T</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">720%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3v-6a3 3 0 00-3-3H6a3 3 0 00-3 3v6a3 3 0 003 3z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Fintech</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Credit Underwriting</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        ML credit scoring: 82% more approvals, 65% lower defaults, $91M loan volume.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$310B</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">1240%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Robotics</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Autonomous Fleet Coordination</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI swarm intelligence: 310% throughput, 92% collision reduction, $14.7B warehouse robotics market.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$14.7B</div>
+                                            <div className="text-white/40">Warehouse</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">420%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Restaurant</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Demand Forecasting</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI demand prediction: 88% waste reduction, $4.2M profit, 23% labor savings.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$900B</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">620%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l9-5-9-5-9 5 9 5z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Education</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Personalized Learning</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI adaptive systems: 35% higher completion rates, 20% improvement on major platforms (Coursera, Khan Academy).
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$7.3T</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">380%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Transportation</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Route Optimization</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        AI route optimization: 44% fuel reduction, 96% on-time delivery, 18.5min saved/route.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$9.2T</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">550%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border border-white/10 bg-white/3 p-6 case-card">
+                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                    </svg>
+                                    <h3 className="text-xl font-semibold mb-2">Manufacturing</h3>
+                                    <div className="text-xs text-blue-accent mb-3">Predictive Maintenance</div>
+                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
+                                        IoT + AI: 87% downtime reduction, 94% fewer defects, $24M annual savings.
+                                    </p>
+                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">$14T</div>
+                                            <div className="text-white/40">Market</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-blue-accent font-semibold">760%</div>
+                                            <div className="text-white/40">ROI</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="text-center">
+                                <div className="inline-block border border-blue-accent/30 bg-blue-accent/5 px-8 py-4">
+                                    <div className="text-3xl font-light text-blue-accent mb-1">$76+ Trillion</div>
+                                    <div className="text-sm text-white/60">Combined Market Opportunity Across 15 Industries</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Case Studies Section */}
+                    <section className="py-20 px-8">
+                        <div className="max-w-7xl mx-auto w-full">
+                            <div className="text-center mb-12">
+                                <h2 className="text-4xl md:text-5xl font-light mb-4">
+                                    Detailed <span className="text-blue-accent">Success Stories</span>
+                                </h2>
+                                <p className="text-lg text-white/60 max-w-3xl mx-auto">
+                                    Filter by industry to see exactly how we've delivered transformative results.
+                                </p>
+                            </div>
+
+                            {/* Industry Filters */}
+                            <div className="flex flex-wrap justify-center gap-4 mb-16 fade-in-up" style={{ animationDelay: '0.2s' }}>
+                                {industries.map(industry => (
+                                    <button
+                                        key={industry.id}
+                                        onClick={() => setActiveFilter(industry.id)}
+                                        className={`filter-btn px-6 py-3 border border-white/10 transition-all duration-300 hover:border-blue-accent ${activeFilter === industry.id ? 'active' : 'bg-white/3'
+                                            }`}
+                                    >
+                                        {industry.name}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Case Study Grid */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                {filteredCases.map((study, idx) => (
+                                    <div
+                                        key={study.id}
+                                        className="case-card border border-white/10 bg-white/3 p-8 lg:p-10"
+                                        style={{ animation: `fadeInUp 0.8s ease forwards`, animationDelay: `${0.1 * idx}s` }}
+                                    >
+                                        <div className="flex justify-between items-start mb-6">
+                                            <div>
+                                                <div className="text-xs text-white/40 mb-2 uppercase tracking-wider">{study.company}</div>
+                                                <h2 className="text-2xl font-semibold mb-2">{study.title}</h2>
+                                            </div>
+                                            <div className="text-blue-accent text-sm font-semibold border border-blue-accent/30 px-3 py-1">
+                                                {study.roi} ROI
+                                            </div>
+                                        </div>
+
+                                        {/* Problem */}
+                                        <div className="mb-6">
+                                            <div className="text-sm font-semibold text-white/60 mb-2">THE CHALLENGE</div>
+                                            <p className="text-white/70 text-sm leading-relaxed">{study.problem}</p>
+                                        </div>
+
+                                        {/* Solution */}
+                                        <div className="mb-6">
+                                            <div className="text-sm font-semibold text-white/60 mb-2">OUR SOLUTION</div>
+                                            <p className="text-white/70 text-sm leading-relaxed">{study.solution}</p>
+                                        </div>
+
+                                        {/* Results */}
+                                        <div className="grid grid-cols-3 gap-4 mb-6 py-6 border-t border-b border-white/10">
+                                            {study.results.map((result, i) => (
+                                                <div key={i} className="text-center">
+                                                    <div className="text-2xl font-light text-blue-accent mb-1">{result.metric}</div>
+                                                    <div className="text-xs text-white/40">{result.label}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Testimonial */}
+                                        <div className="mb-6">
+                                            <p className="text-white/80 text-sm italic leading-relaxed">"{study.testimonial}"</p>
+                                        </div>
+
+                                        {/* Timeline */}
+                                        <div className="flex justify-between items-center text-xs text-white/40">
+                                            <span>Timeline: {study.timeline}</span>
+                                            <span className="uppercase tracking-wider">{study.industry}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* CTA Section */}
+                            {/* CTA Section */}
+                            <div className="mt-20 border border-white-10 bg-white-3 p-12 text-center">
+                                <h3 className="text-3xl font-light mb-4">Ready to Write Your Success Story?</h3>
+                                <p className="text-white/60 mb-8 max-w-2xl mx-auto">
+                                    Schedule a free consultation and we'll show you exactly how AI automation can transform your operations.
+                                </p>
+                                <a href="contact.html" className="inline-block bg-blue-accent text-white px-10 py-4 font-semibold hover:bg-opacity-90 transition-all">
+                                    Book Your Strategy Session →
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="border-t border-white/10 py-12">
+                        <div className="max-w-6xl mx-auto px-8 text-center">
+                            <p className="text-white/40 text-sm">© 2026 Autoneties. All rights reserved.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<CaseStudiesPage />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>

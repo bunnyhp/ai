@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Autoneties - Schedule Your AI Strategy Session</title>
+    <meta name="description"
+        content="Schedule a free consultation with Autoneties. Let's discuss how AI automation can transform your business operations and drive measurable ROI.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d0d0d;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Blue accent color */
+        .text-blue-accent {
+            color: #0066FF;
+        }
+
+        .bg-blue-accent {
+            background: #0066FF;
+        }
+
+        .border-blue-accent {
+            border-color: #0066FF;
+        }
+
+        /* Form input styles */
+        .form-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(0, 102, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.2);
+            background: rgba(0, 102, 255, 0.05);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Select dropdown styles */
+        select.form-input {
+            background-color: #000;
+            color: #fff;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            padding-right: 3rem;
+        }
+
+        select.form-input option {
+            background-color: #000;
+            color: #fff;
+            padding: 1rem;
+        }
+
+        select.form-input:focus {
+            background-color: #000;
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background: #0066FF;
+            color: #fff;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #0052CC;
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Box hover effect */
+        .box-hover {
+            transition: all 0.3s ease;
+        }
+
+        .box-hover:hover {
+            background: rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(20px);
+            border-color: rgba(0, 102, 255, 0.4) !important;
+            box-shadow: 0 0 40px rgba(0, 102, 255, 0.15);
+        }
+
+        /* Success message */
+        .success-message {
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            padding: 1.5rem;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Matrix canvas background */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        /* Grey background utility */
+        .bg-white-3 {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .border-white-5 {
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .border-white-10 {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/5 z-50">
+        <div class="max-w-screen-2xl mx-auto px-8 lg:px-16 py-4 flex justify-between items-center">
+            <a href="index.html"
+                class="text-xl font-bold tracking-tight text-white hover:text-blue-accent transition-all duration-300">
+                AUTONETIES
+            </a>
+            <div class="flex gap-1 items-center">
+                <a href="index.html#platform"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Solution
+                </a>
+                <a href="vision.html"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Vision
+                </a>
+                <a href="case-studies.html"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Case Studies
+                </a>
+                <a href="contact.html"
+                    class="px-4 py-2 text-sm font-semibold text-black bg-white rounded-lg shadow-lg shadow-blue-accent/40">
+                    Contact Us
+                </a>
+                <a href="verify-project.html"
+                    class="ml-2 px-5 py-2 text-sm font-semibold text-black bg-white rounded-lg shadow-lg shadow-blue-accent/40 hover:shadow-xl hover:shadow-blue-accent/60 transition-all duration-300">
+                    Verify Project
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-32 pb-20 px-8">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-xs tracking-[0.3em] font-mono text-white/40 block mb-6">CONTACT_PROTOCOL</span>
+                <h1 class="text-6xl md:text-7xl font-light mb-6 leading-tight">
+                    Let's Build Your<br />
+                    <span class="text-blue-accent">AI-Powered Future</span>
+                </h1>
+                <p class="text-xl text-white/60 max-w-3xl mx-auto">
+                    Schedule a free strategy session. We'll analyze your workflows, identify automation opportunities,
+                    and show you exactly how AI can transform your operations.
+                </p>
+            </div>
+
+            <!-- Contact Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 fade-in-up" style="animation-delay: 0.2s;">
+                <!-- Contact Form -->
+                <div class="border border-white/10 bg-white-3 p-8 lg:p-12 box-hover">
+                    <h2 class="text-2xl font-semibold mb-2">Book Your Strategy Session</h2>
+                    <p class="text-white/50 text-sm mb-8">Fill out the form below and we'll get back to you within 24
+                        hours.</p>
+
+                    <div id="successMessage" class="success-message mb-6">
+                        <div class="text-blue-accent font-semibold mb-2">✓ Message Sent Successfully!</div>
+                        <p class="text-white/70 text-sm">Thank you for reaching out. Our team will contact you within 24
+                            hours.</p>
+                    </div>
+
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm text-white/60 mb-2">Full Name *</label>
+                                <input type="text" name="name" required class="form-input" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-white/60 mb-2">Company *</label>
+                                <input type="text" name="company" required class="form-input"
+                                    placeholder="Company Inc.">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm text-white/60 mb-2">Email *</label>
+                                <input type="email" name="email" required class="form-input"
+                                    placeholder="john@company.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-white/60 mb-2">Phone</label>
+                                <input type="tel" name="phone" class="form-input" placeholder="+1 (555) 123-4567">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2">Industry *</label>
+                            <select name="industry" required class="form-input">
+                                <option value="">Select your industry</option>
+                                <option value="agriculture">Agriculture</option>
+                                <option value="automotive">Automotive</option>
+                                <option value="banking">Banking & Finance</option>
+                                <option value="chemical">Chemical</option>
+                                <option value="construction">Construction</option>
+                                <option value="cybersecurity">Cybersecurity</option>
+                                <option value="ecommerce">E-Commerce & Retail</option>
+                                <option value="education">Education</option>
+                                <option value="energy">Energy & Utilities</option>
+                                <option value="fintech">FinTech</option>
+                                <option value="food">Food & Beverage</option>
+                                <option value="government">Government</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="hospitality">Hospitality & Travel</option>
+                                <option value="insurance">Insurance</option>
+                                <option value="it">IT & Technology</option>
+                                <option value="legal">Legal</option>
+                                <option value="logistics">Logistics & Supply Chain</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="media">Media & Entertainment</option>
+                                <option value="nonprofit">Non-Profit</option>
+                                <option value="pharmaceutical">Pharmaceutical</option>
+                                <option value="realestate">Real Estate</option>
+                                <option value="restaurant">Restaurant & Food Service</option>
+                                <option value="robotics">Robotics & Automation</option>
+                                <option value="telecom">Telecommunications</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2">What challenges are you facing? *</label>
+                            <textarea name="message" required rows="5" class="form-input"
+                                placeholder="Tell us about your automation needs, current workflows, or specific pain points..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2">Preferred Meeting Time</label>
+                            <input type="datetime-local" name="meeting_time" class="form-input">
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full">
+                            Schedule Free Consultation →
+                        </button>
+
+                        <p class="text-xs text-white/40 text-center">
+                            By submitting this form, you agree to our privacy policy. We respect your data and will
+                            never share it with third parties.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <!-- Quick Stats -->
+                    <div class="border border-white/10 bg-white-3 p-8 box-hover">
+                        <h3 class="text-xl font-semibold mb-6">What to Expect</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="text-blue-accent text-2xl">01</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Workflow Analysis</h4>
+                                    <p class="text-sm text-white/60">We'll analyze your current processes and identify
+                                        automation opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="text-blue-accent text-2xl">02</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Custom Strategy</h4>
+                                    <p class="text-sm text-white/60">Receive a tailored AI implementation roadmap with
+                                        ROI projections.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="text-blue-accent text-2xl">03</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Next Steps</h4>
+                                    <p class="text-sm text-white/60">If we're a good fit, we'll outline a clear
+                                        implementation timeline.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="border border-white/10 bg-white-3 p-8 box-hover">
+                        <h3 class="text-xl font-semibold mb-6">Get In Touch</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="text-white/40 text-sm mb-1">Email</div>
+                                <a href="mailto:contact@autoneties.com"
+                                    class="text-white hover:text-blue-accent transition-colors">
+                                    contact@autoneties.com
+                                </a>
+                            </div>
+                            <div>
+                                <div class="text-white/40 text-sm mb-1">Phone</div>
+                                <a href="tel:+15551234567" class="text-white hover:text-blue-accent transition-colors">
+                                    +1 (555) 123-4567
+                                </a>
+                            </div>
+                            <div>
+                                <div class="text-white/40 text-sm mb-1">Response Time</div>
+                                <div class="text-white">Within 24 hours</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="border border-white/10 bg-white/3 p-8 box-hover">
+                        <div class="grid grid-cols-2 gap-6 text-center">
+                            <div>
+                                <div class="text-3xl font-light text-blue-accent mb-2">1,250+</div>
+                                <div class="text-xs text-white/40">Workflows Automated</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-light text-blue-accent mb-2">420%</div>
+                                <div class="text-xs text-white/40">Avg Client ROI</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-light text-blue-accent mb-2">50</div>
+                                <div class="text-xs text-white/40">AI Experts</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-light text-blue-accent mb-2">99.4%</div>
+                                <div class="text-xs text-white/40">Uptime SLA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12">
+        <div class="max-w-6xl mx-auto px-8 text-center">
+            <p class="text-white/40 text-sm">© 2026 Autoneties. All rights reserved. Built with precision and purpose.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Matrix Rain Effect
+        (function () {
+            const canvas = document.getElementById('matrix-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+
+            const draw = () => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            };
+
+            const interval = setInterval(draw, 33);
+            const handleResize = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            };
+
+            window.addEventListener('resize', handleResize);
+        })();
+
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Show success message
+            document.getElementById('successMessage').classList.add('show');
+
+            // Reset form
+            this.reset();
+
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.remove('show');
+            }, 5000);
+
+            // In production, you would send the form data to your backend here
+            // Example with fetch:
+            // const formData = new FormData(this);
+            // fetch('/api/contact', { method: 'POST', body: formData })
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

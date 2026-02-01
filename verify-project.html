@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Project - Get AI Audit | Autoneties</title>
+    <meta name="description"
+        content="Submit your project for a free AI audit. Get expert analysis of your codebase, security vulnerabilities, and optimization opportunities.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d0d0d;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .text-blue-accent {
+            color: #0066FF;
+        }
+
+        .bg-blue-accent {
+            background: #0066FF;
+        }
+
+        /* Form input styles */
+        .form-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(0, 102, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.2);
+            background: rgba(0, 102, 255, 0.05);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background: #0066FF;
+            color: #fff;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #0052CC;
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* File upload area */
+        .file-upload {
+            border: 2px dashed rgba(0, 102, 255, 0.3);
+            background: rgba(0, 102, 255, 0.05);
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: rgba(0, 102, 255, 0.6);
+            background: rgba(0, 102, 255, 0.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Box hover effect */
+        .box-hover {
+            transition: all 0.3s ease;
+        }
+
+        .box-hover:hover {
+            background: rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(20px);
+            border-color: rgba(0, 102, 255, 0.4) !important;
+            box-shadow: 0 0 40px rgba(0, 102, 255, 0.15);
+        }
+
+        .success-message {
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            padding: 1.5rem;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Matrix canvas background */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        /* Grey background utility */
+        .bg-white-3 {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .border-white-5 {
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .border-white-10 {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/5 z-50">
+        <div class="max-w-screen-2xl mx-auto px-8 lg:px-16 py-4 flex justify-between items-center">
+            <a href="index.html"
+                class="text-xl font-bold tracking-tight text-white hover:text-blue-accent transition-all duration-300">
+                AUTONETIES
+            </a>
+            <div class="flex gap-1 items-center">
+                <a href="index.html#platform"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Solution
+                </a>
+                <a href="vision.html"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Vision
+                </a>
+                <a href="case-studies.html"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Case Studies
+                </a>
+                <a href="contact.html"
+                    class="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white hover:shadow-lg hover:shadow-blue-accent/50 rounded-lg transition-all duration-300 ease-out">
+                    Contact Us
+                </a>
+                <a href="verify-project.html"
+                    class="ml-2 px-5 py-2 text-sm font-semibold text-black bg-white rounded-lg shadow-lg shadow-blue-accent/40">
+                    Verify Project
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-32 pb-20 px-8">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-xs tracking-[0.3em] font-mono text-white/40 block mb-6">VERIFICATION_PROTOCOL</span>
+                <h1 class="text-6xl md:text-7xl font-light mb-6 leading-tight">
+                    Free AI Project<br />
+                    <span class="text-blue-accent">Security Audit</span>
+                </h1>
+                <p class="text-xl text-white/60 max-w-3xl mx-auto">
+                    Submit your project for a comprehensive AI-powered analysis. Get detailed insights on security
+                    vulnerabilities,
+                    code quality, performance bottlenecks, and optimization opportunities.
+                </p>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 fade-in-up" style="animation-delay: 0.2s;">
+                <!-- Project Submission Form -->
+                <div class="border border-white/10 bg-white-3 p-8 lg:p-12 box-hover">
+                    <h2 class="text-2xl font-semibold mb-2">Submit Your Project</h2>
+                    <p class="text-white/50 text-sm mb-8">Upload your codebase or provide repository access for
+                        analysis.</p>
+
+                    <div id="successMessage" class="success-message mb-6">
+                        <div class="text-blue-accent font-semibold mb-2">✓ Project Submitted Successfully!</div>
+                        <p class="text-white/70 text-sm">Your audit report will be ready within 24-48 hours. We'll send
+                            it to your email.</p>
+                    </div>
+
+                    <form id="verifyForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm text-white/60 mb-2">Your Name *</label>
+                                <input type="text" name="name" required class="form-input" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-white/60 mb-2">Company</label>
+                                <input type="text" name="company" class="form-input" placeholder="Your Company">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2">Email *</label>
+                            <input type="email" name="email" required class="form-input" placeholder="john@company.com">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2">Project Name *</label>
+                            <input type="text" name="project_name" required class="form-input"
+                                placeholder="My AI Application">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2">Tech Stack *</label>
+                            <select name="tech_stack" required class="form-input">
+                                <option value="">Select primary technology</option>
+                                <option value="python">Python</option>
+                                <option value="javascript">JavaScript/Node.js</option>
+                                <option value="java">Java</option>
+                                <option value="csharp">C#/.NET</option>
+                                <option value="go">Go</option>
+                                <option value="php">PHP</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2">Repository URL (GitHub, GitLab,
+                                etc.)</label>
+                            <input type="url" name="repo_url" class="form-input"
+                                placeholder="https://github.com/username/repo">
+                            <p class="text-xs text-white/30 mt-2">Or upload files below</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-4">Upload Project Files</label>
+                            <div class="file-upload" id="fileUploadArea">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto mb-4 text-blue-accent"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
+                                <p class="text-white/60 mb-2">Drag & drop files here or click to browse</p>
+                                <p class="text-xs text-white/30">Supports .zip, .tar.gz (Max 50MB)</p>
+                                <input type="file" id="fileInput" name="project_files" accept=".zip,.tar.gz,.tgz"
+                                    class="hidden">
+                            </div>
+                            <div id="fileName" class="text-sm text-white/60 mt-2"></div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2">What are your main concerns?</label>
+                            <textarea name="concerns" rows="4" class="form-input"
+                                placeholder="Security vulnerabilities, performance issues, code quality..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full">
+                            Submit for Free Audit →
+                        </button>
+
+                        <p class="text-xs text-white/40 text-center">
+                            Your code is analyzed securely and deleted after the audit. We respect your IP and
+                            confidentiality.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- What You'll Get -->
+                <div class="space-y-8">
+                    <div class="border border-white/10 bg-white-3 p-8 box-hover">
+                        <h3 class="text-xl font-semibold mb-6">Your Audit Report Includes</h3>
+                        <div class="space-y-5">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-8 h-8 flex items-center justify-center border border-blue-accent/30 bg-blue-accent/10 flex-shrink-0">
+                                    <svg class="w-4 h-4 text-blue-accent" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Vulnerability Mapping</h4>
+                                    <p class="text-sm text-white/60">We scan for OWASP Top 10, known CVEs, and
+                                        misconfigurations that attackers actually exploit in production.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-8 h-8 flex items-center justify-center border border-blue-accent/30 bg-blue-accent/10 flex-shrink-0">
+                                    <svg class="w-4 h-4 text-blue-accent" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Performance Profiling</h4>
+                                    <p class="text-sm text-white/60">Database query analysis, API latency hotspots, and
+                                        memory allocation patterns that slow you down.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-8 h-8 flex items-center justify-center border border-blue-accent/30 bg-blue-accent/10 flex-shrink-0">
+                                    <svg class="w-4 h-4 text-blue-accent" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Technical Debt Score</h4>
+                                    <p class="text-sm text-white/60">Cyclomatic complexity, duplication ratios, and
+                                        coupling metrics—with a clear path to reduce each.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-8 h-8 flex items-center justify-center border border-blue-accent/30 bg-blue-accent/10 flex-shrink-0">
+                                    <svg class="w-4 h-4 text-blue-accent" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">LLM Security Review</h4>
+                                    <p class="text-sm text-white/60">Prompt injection vectors, context window leaks, and
+                                        guardrail bypasses specific to your AI implementation.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-8 h-8 flex items-center justify-center border border-blue-accent/30 bg-blue-accent/10 flex-shrink-0">
+                                    <svg class="w-4 h-4 text-blue-accent" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Prioritized Fix List</h4>
+                                    <p class="text-sm text-white/60">Every issue ranked by severity and effort—so you
+                                        know exactly what to fix first and what can wait.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-white/10 bg-white-3 p-8 box-hover">
+                        <h3 class="text-xl font-semibold mb-4">Audit Timeline</h3>
+                        <div class="space-y-3">
+                            <div class="flex gap-3">
+                                <div class="text-blue-accent font-mono text-sm">00:00</div>
+                                <div class="text-sm text-white/70">Submit project</div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="text-blue-accent font-mono text-sm">00:15</div>
+                                <div class="text-sm text-white/70">Automated scans begin</div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="text-blue-accent font-mono text-sm">12:00</div>
+                                <div class="text-sm text-white/70">Manual expert review</div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="text-blue-accent font-mono text-sm">48:00</div>
+                                <div class="text-sm text-white/70">Full report delivered</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-blue-accent/30 bg-blue-accent/5 p-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-light text-blue-accent mb-2">100% Free</div>
+                            <p class="text-sm text-white/60">No credit card. No commitment.</p>
+                            <p class="text-sm text-white/60">See what production-ready looks like.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12">
+        <div class="max-w-6xl mx-auto px-8 text-center">
+            <p class="text-white/40 text-sm">© 2026 Autoneties. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Matrix Rain Effect
+        (function () {
+            const canvas = document.getElementById('matrix-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+
+            const draw = () => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            };
+
+            const interval = setInterval(draw, 33);
+            const handleResize = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            };
+
+            window.addEventListener('resize', handleResize);
+        })();
+
+        // File upload handling
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+
+        fileUploadArea.addEventListener('click', () => fileInput.click());
+
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.style.borderColor = 'rgba(0, 102, 255, 0.8)';
+        });
+
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.style.borderColor = 'rgba(0, 102, 255, 0.3)';
+        });
+
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.style.borderColor = 'rgba(0, 102, 255, 0.3)';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                fileName.textContent = `Selected: ${files[0].name}`;
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileName.textContent = `Selected: ${e.target.files[0].name}`;
+            }
+        });
+
+        // Form submission handling
+        document.getElementById('verifyForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Show success message
+            document.getElementById('successMessage').classList.add('show');
+
+            // Reset form
+            this.reset();
+            fileName.textContent = '';
+
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Hide success message after 7 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.remove('show');
+            }, 7000);
+
+            // In production: send to backend
+            // const formData = new FormData(this);
+            // fetch('/api/verify-project', { method: 'POST', body: formData })
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
