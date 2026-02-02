@@ -224,7 +224,10 @@
                             it to your email.</p>
                     </div>
 
-                    <form id="verifyForm" class="space-y-6">
+                    <form id="verifyForm" action="https://formspree.io/f/mwpvzbwn" method="POST" class="space-y-6">
+                        <input type="hidden" name="_next"
+                            value="https://www.autoneties.com/verify-project.html?success=true">
+                        <input type="hidden" name="_subject" value="New Project Verification Request - Autoneties">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm text-white/60 mb-2">Your Name *</label>
@@ -501,29 +504,24 @@
             }
         });
 
-        // Form submission handling
-        document.getElementById('verifyForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+        // Form submission handling - check for success redirect
+        (function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
 
-            // Show success message
-            document.getElementById('successMessage').classList.add('show');
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-            // Reset form
-            this.reset();
-            fileName.textContent = '';
-
-            // Scroll to success message
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-            // Hide success message after 7 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').classList.remove('show');
-            }, 7000);
-
-            // In production: send to backend
-            // const formData = new FormData(this);
-            // fetch('/api/verify-project', { method: 'POST', body: formData })
-        });
+                // Hide success message after 8 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.remove('show');
+                    // Clean up URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }, 8000);
+            }
+        })();
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

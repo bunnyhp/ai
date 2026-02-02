@@ -238,7 +238,9 @@
                             hours.</p>
                     </div>
 
-                    <form id="contactForm" class="space-y-6">
+                    <form id="contactForm" action="https://formspree.io/f/xzzedvov" method="POST" class="space-y-6">
+                        <input type="hidden" name="_next" value="https://www.autoneties.com/contact.html?success=true">
+                        <input type="hidden" name="_subject" value="New Contact Form Submission - Autoneties">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm text-white/60 mb-2">Full Name *</label>
@@ -452,29 +454,24 @@
             window.addEventListener('resize', handleResize);
         })();
 
-        // Form submission handling
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+        // Form submission handling - check for success redirect
+        (function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
 
-            // Show success message
-            document.getElementById('successMessage').classList.add('show');
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-            // Reset form
-            this.reset();
-
-            // Scroll to success message
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').classList.remove('show');
-            }, 5000);
-
-            // In production, you would send the form data to your backend here
-            // Example with fetch:
-            // const formData = new FormData(this);
-            // fetch('/api/contact', { method: 'POST', body: formData })
-        });
+                // Hide success message after 8 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.remove('show');
+                    // Clean up URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }, 8000);
+            }
+        })();
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
