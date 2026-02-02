@@ -529,6 +529,8 @@
         // Navigation
         const Navigation = () => {
             const [scrolled, setScrolled] = useState(false);
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
             useEffect(() => {
                 const handleScroll = () => setScrolled(window.scrollY > 50);
                 window.addEventListener('scroll', handleScroll);
@@ -537,12 +539,13 @@
 
             return (
                 <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/5 z-50">
-                    <div className="max-w-screen-2xl mx-auto px-8 lg:px-16 py-4 flex justify-between items-center">
+                    <div className="max-w-screen-2xl mx-auto px-4 md:px-8 lg:px-16 py-4 flex justify-between items-center">
                         <a href="index.html" className="text-xl font-bold tracking-tight text-white hover:text-blue-accent transition-all duration-300">
                             AUTONETIES
                         </a>
-                        <div className="flex gap-1 items-center">
 
+                        {/* Desktop Navigation */}
+                        <div className="hidden md:flex gap-1 items-center">
                             <a href="vision.html" className="px-4 py-2 text-sm font-medium text-white/70 hover:text-black hover:bg-white rounded-lg hover:shadow-lg hover:shadow-blue-accent/50 transition-all duration-300 ease-out">
                                 Vision
                             </a>
@@ -556,7 +559,44 @@
                                 Verify Project
                             </a>
                         </div>
+
+                        {/* Mobile Hamburger Button */}
+                        <button
+                            className="md:hidden text-white p-2"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            aria-label="Toggle menu"
+                        >
+                            {mobileMenuOpen ? (
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            ) : (
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            )}
+                        </button>
                     </div>
+
+                    {/* Mobile Menu */}
+                    {mobileMenuOpen && (
+                        <div className="md:hidden bg-black/95 border-t border-white/5 px-4 py-4">
+                            <div className="flex flex-col gap-2">
+                                <a href="vision.html" className="px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-all">
+                                    Vision
+                                </a>
+                                <a href="case-studies.html" className="px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-all">
+                                    Case Studies
+                                </a>
+                                <a href="contact.html" className="px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-all">
+                                    Contact Us
+                                </a>
+                                <a href="verify-project.html" className="mt-2 px-4 py-3 text-sm font-semibold text-black bg-white rounded-lg text-center">
+                                    Verify Project
+                                </a>
+                            </div>
+                        </div>
+                    )}
                 </nav>
             );
         };
