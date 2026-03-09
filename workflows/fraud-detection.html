@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection Workflow — Autoneties</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0e1a;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2340;
+            --accent: #d4a844;
+            --accent-glow: rgba(212, 168, 68, 0.3);
+            --accent-secondary: #2563eb;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --border: rgba(212, 168, 68, 0.15);
+            --connector: #d4a844;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(212, 168, 68, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(37, 99, 235, 0.04) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+
+        .back-link a:hover {
+            color: var(--text);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(212, 168, 68, 0.1);
+            z-index: 99;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        /* Steps container */
+        .steps-section {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        .steps-header {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Step card */
+        .step {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            margin-bottom: 0;
+        }
+
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 50px;
+            position: relative;
+        }
+
+        .step-dot {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s ease;
+        }
+
+        .step.visible .step-dot {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .step-connector {
+            width: 2px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.6s ease 0.3s;
+            opacity: 0.4;
+        }
+
+        .step.visible .step-connector {
+            height: 60px;
+        }
+
+        .step-content {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.8rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-bottom: 1rem;
+        }
+
+        .step-content:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transform: translateX(4px);
+        }
+
+        .step-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+        }
+
+        .actor-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .actor-ai {
+            background: rgba(37, 99, 235, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .actor-system {
+            background: rgba(212, 168, 68, 0.15);
+            color: #d4a844;
+            border: 1px solid rgba(212, 168, 68, 0.3);
+        }
+
+        .actor-human {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .actor-hybrid {
+            background: rgba(168, 85, 247, 0.15);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .step-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .step-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            border-top: 0 solid var(--border);
+        }
+
+        .step-detail.open {
+            max-height: 200px;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top-width: 1px;
+        }
+
+        .step-detail p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* Outcome */
+        .outcome {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 2rem auto 4rem;
+            padding: 0 2rem;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .outcome.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .outcome-card {
+            background: linear-gradient(135deg, rgba(212, 168, 68, 0.1), rgba(37, 99, 235, 0.05));
+            border: 1px solid var(--accent);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outcome-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, var(--accent-glow), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .outcome.visible .outcome-card::before {
+            opacity: 1;
+        }
+
+        .outcome-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .outcome h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .outcome h2 span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .outcome p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .outcome-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .outcome-metric-value {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--accent);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .outcome-metric-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            margin-top: 0.3rem;
+        }
+
+        /* Replay button */
+        .replay-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            transition: all 0.3s ease;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .replay-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .step {
+                opacity: 1;
+                transform: none;
+            }
+
+            .outcome {
+                opacity: 1;
+                transform: none;
+            }
+
+            .step-connector {
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 7rem 1.5rem 3rem;
+                min-height: 50vh;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .steps-section {
+                padding: 1rem 1.5rem 3rem;
+            }
+
+            .step {
+                gap: 1rem;
+            }
+
+            .step-content {
+                padding: 1.2rem;
+            }
+
+            .outcome-metrics {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .outcome-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back-link">
+        <a href="../case-studies.html">← BACK TO CASE STUDIES</a>
+        <span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text-dim);">AUTONETIES
+            WORKFLOW</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🏦 BANKING &amp; FINANCE</div>
+            <h1>Fraud Detection <span>Revolution</span></h1>
+            <p>Manual fraud detection was missing 40% of fraudulent transactions while flagging too many false
+                positives, causing customer friction and $42M+ in annual losses.</p>
+        </div>
+    </section>
+
+    <section class="steps-section">
+        <div class="steps-header">WORKFLOW — 7 AUTOMATED STAGES</div>
+
+        <div class="step"
+            data-detail="Every swipe, transfer, and online payment is captured in real-time with full contextual metadata including device fingerprint, geolocation, and merchant data.">
+            <div class="step-indicator">
+                <div class="step-dot">💳</div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step-content" onclick="toggleDetail(this)">
+                <div class="step-top">
+                    <span class="step-number">STEP 01</span>
+                    <span class="actor-badge actor-system">⚙️ SYSTEM</span>
+                </div>
+                <div class="step-label">Transaction Captured</div>
+                <div class="step-desc">Every transaction across all channels is captured in real-time with full
+                    contextual metadata.</div>
+                <div class="step-detail">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step"
+            data-detail="AI compares the transaction against 200+ behavioral signals: spending patterns, login times, device usage, transaction velocity, and peer group norms built from 18 months of history.">
+            <div class="step-indicator">
+                <div class="step-dot">🤖</div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step-content" onclick="toggleDetail(this)">
+                <div class="step-top">
+                    <span class="step-number">STEP 02</span>
+                    <span class="actor-badge actor-ai">🤖 AI</span>
+                </div>
+                <div class="step-label">Behavioral Pattern Analysis</div>
+                <div class="step-desc">AI analyzes 200+ behavioral signals against the customer's historical profile in
+                    under 50ms.</div>
+                <div class="step-detail">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step"
+            data-detail="Each transaction receives a composite risk score from 0-1000, weighted across fraud type probability, account vulnerability, and financial exposure. Thresholds auto-calibrate daily.">
+            <div class="step-indicator">
+                <div class="step-dot">📊</div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step-content" onclick="toggleDetail(this)">
+                <div class="step-top">
+                    <span class="step-number">STEP 03</span>
+                    <span class="actor-badge actor-ai">🤖 AI</span>
+                </div>
+                <div class="step-label">Risk Score Computation</div>
+                <div class="step-desc">Multi-model ensemble generates a composite risk score factoring fraud type,
+                    account history, and exposure.</div>
+                <div class="step-detail">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step"
+            data-detail="Transactions scoring below 200 are approved instantly. Scores 200-600 trigger step-up authentication. Scores above 600 are blocked and flagged for review. Rules update in real-time.">
+            <div class="step-indicator">
+                <div class="step-dot">🔀</div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step-content" onclick="toggleDetail(this)">
+                <div class="step-top">
+                    <span class="step-number">STEP 04</span>
+                    <span class="actor-badge actor-system">⚙️ SYSTEM</span>
+                </div>
+                <div class="step-label">Automated Decision Engine</div>
+                <div class="step-desc">Approve, challenge, or block — automated decisions execute in under 200ms based
+                    on risk tiers.</div>
+                <div class="step-detail">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step"
+            data-detail="High-risk blocks trigger instant SMS/push notifications to the cardholder with one-tap verification. If the customer confirms legitimacy, the block is lifted and the model learns.">
+            <div class="step-indicator">
+                <div class="step-dot">🔔</div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step-content" onclick="toggleDetail(this)">
+                <div class="step-top">
+                    <span class="step-number">STEP 05</span>
+                    <span class="actor-badge actor-hybrid">🤝 HYBRID</span>
+                </div>
+                <div class="step-label">Alert & Customer Verification</div>
+                <div class="step-desc">Suspicious transactions trigger instant customer alerts with one-tap verify/deny
+                    capability.</div>
+                <div class="step-detail">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step"
+            data-detail="Only the most complex cases (0.3% of total volume) reach human analysts, pre-enriched with AI-generated investigation summaries, related transaction clusters, and recommended actions.">
+            <div class="step-indicator">
+                <div class="step-dot">👤</div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step-content" onclick="toggleDetail(this)">
+                <div class="step-top">
+                    <span class="step-number">STEP 06</span>
+                    <span class="actor-badge actor-human">👤 HUMAN</span>
+                </div>
+                <div class="step-label">Expert Analyst Review</div>
+                <div class="step-desc">Complex edge cases land on analyst dashboards pre-enriched with AI investigation
+                    summaries.</div>
+                <div class="step-detail">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step"
+            data-detail="Every decision—automated or human—feeds back into the models. The system continuously recalibrates, learning new fraud patterns within hours of first detection.">
+            <div class="step-indicator">
+                <div class="step-dot">🔄</div>
+            </div>
+            <div class="step-content" onclick="toggleDetail(this)">
+                <div class="step-top">
+                    <span class="step-number">STEP 07</span>
+                    <span class="actor-badge actor-ai">🤖 AI</span>
+                </div>
+                <div class="step-label">Continuous Model Learning</div>
+                <div class="step-desc">Every outcome feeds back into the model, creating an ever-improving detection
+                    loop.</div>
+                <div class="step-detail">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="outcome" id="outcome">
+        <div class="outcome-card">
+            <div class="outcome-icon">🏆</div>
+            <h2>Result: <span>Fraud Eliminated</span></h2>
+            <p>Real-time AI-powered fraud detection deployed across all transaction channels in just 4 months.</p>
+            <div class="outcome-metrics">
+                <div>
+                    <div class="outcome-metric-value">$42M</div>
+                    <div class="outcome-metric-label">FRAUD PREVENTED</div>
+                </div>
+                <div>
+                    <div class="outcome-metric-value">90%</div>
+                    <div class="outcome-metric-label">FEWER FALSE POSITIVES</div>
+                </div>
+                <div>
+                    <div class="outcome-metric-value">&lt;200ms</div>
+                    <div class="outcome-metric-label">DETECTION SPEED</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <button class="replay-btn" onclick="replayAll()" title="Replay animation"
+        aria-label="Replay workflow animation">⟳</button>
+
+    <script>
+        // Populate detail text from data attributes
+        document.querySelectorAll('.step').forEach(step => {
+            const detail = step.querySelector('.step-detail p');
+            if (detail) detail.textContent = step.dataset.detail || '';
+        });
+
+        // Toggle expand/collapse
+        function toggleDetail(el) {
+            const detail = el.querySelector('.step-detail');
+            detail.classList.toggle('open');
+        }
+
+        // Intersection Observer for step animations
+        const steps = document.querySelectorAll('.step');
+        const outcome = document.getElementById('outcome');
+        const progressFill = document.getElementById('progressFill');
+        const totalSteps = steps.length;
+        let visibleCount = 0;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const idx = Array.from(steps).indexOf(el);
+                    setTimeout(() => {
+                        el.classList.add('visible');
+                        visibleCount = Math.max(visibleCount, idx + 1);
+                        progressFill.style.width = ((visibleCount / totalSteps) * 100) + '%';
+                    }, idx * 150);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        steps.forEach(step => observer.observe(step));
+
+        const outcomeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    progressFill.style.width = '100%';
+                }
+            });
+        }, { threshold: 0.3 });
+        outcomeObserver.observe(outcome);
+
+        // Replay
+        function replayAll() {
+            visibleCount = 0;
+            progressFill.style.width = '0%';
+            steps.forEach(s => { s.classList.remove('visible'); s.querySelector('.step-detail').classList.remove('open'); });
+            outcome.classList.remove('visible');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                steps.forEach((step, i) => {
+                    setTimeout(() => step.classList.add('visible'), (i + 1) * 400);
+                });
+                setTimeout(() => {
+                    outcome.classList.add('visible');
+                    progressFill.style.width = '100%';
+                }, (steps.length + 1) * 400);
+            }, 800);
+        }
+    </script>
+</body>
+
+</html>

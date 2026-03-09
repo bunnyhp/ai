@@ -95,6 +95,51 @@
             pointer-events: none;
         }
 
+        /* Workflow CTA button */
+        .workflow-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(0, 102, 255, 0.12);
+            border: 1px solid #0066FF;
+            color: #fff;
+            padding: 0.75rem 1.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: btnGlow 2.5s ease-in-out infinite;
+        }
+
+        .workflow-btn:hover {
+            background: #0066FF;
+            box-shadow: 0 0 30px rgba(0, 102, 255, 0.5), 0 0 60px rgba(0, 102, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .workflow-btn .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .workflow-btn:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        @keyframes btnGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(0, 102, 255, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(0, 102, 255, 0.5), 0 0 40px rgba(0, 102, 255, 0.15);
+            }
+        }
+
         /* Grey background utility */
         .bg-white-3 {
             background: rgba(255, 255, 255, 0.03);
@@ -264,7 +309,8 @@
                     ],
                     timeline: '4 months',
                     testimonial: 'Autoneties transformed our entire risk management infrastructure. The ROI was immediate and continues to compound.',
-                    roi: '580%'
+                    roi: '580%',
+                    workflow: 'workflows/fraud-detection.html'
                 },
                 {
                     id: 2,
@@ -280,7 +326,8 @@
                     ],
                     timeline: '6 months',
                     testimonial: "Our competitors are still using traditional methods while we're discovering viable compounds 3x faster.",
-                    roi: '420%'
+                    roi: '420%',
+                    workflow: 'workflows/molecular-discovery.html'
                 },
                 {
                     id: 3,
@@ -296,7 +343,8 @@
                     ],
                     timeline: '5 months',
                     testimonial: 'We went from 80 property managers to 25, while improving service quality dramatically.',
-                    roi: '680%'
+                    roi: '680%',
+                    workflow: 'workflows/property-management.html'
                 },
                 {
                     id: 4,
@@ -312,7 +360,8 @@
                     ],
                     timeline: '7 months',
                     testimonial: 'Our doctors now spend time healing, not filling out forms. Patient outcomes have never been better.',
-                    roi: '340%'
+                    roi: '340%',
+                    workflow: 'workflows/patient-care.html'
                 },
                 {
                     id: 5,
@@ -328,7 +377,8 @@
                     ],
                     timeline: '3 months',
                     testimonial: 'Our support team went from firefighting to strategic customer success. Revenue retention skyrocketed.',
-                    roi: '520%'
+                    roi: '520%',
+                    workflow: 'workflows/customer-success.html'
                 },
                 {
                     id: 6,
@@ -344,7 +394,8 @@
                     ],
                     timeline: '8 months',
                     testimonial: "We know exactly what every acre needs, when it needs it. It's farming from the future.",
-                    roi: '450%'
+                    roi: '450%',
+                    workflow: 'workflows/precision-farming.html'
                 },
                 {
                     id: 7,
@@ -360,7 +411,8 @@
                     ],
                     timeline: '9 months',
                     testimonial: 'AI turned our renewable grid from unpredictable chaos into a self-optimizing powerhouse.',
-                    roi: '510%'
+                    roi: '510%',
+                    workflow: 'workflows/smart-grid.html'
                 },
                 {
                     id: 8,
@@ -376,7 +428,8 @@
                     ],
                     timeline: '5 months',
                     testimonial: 'From drowning in alerts to stopping threats before they materialize. This is security from 2030.',
-                    roi: '890%'
+                    roi: '890%',
+                    workflow: 'workflows/threat-detection.html'
                 },
                 {
                     id: 9,
@@ -392,7 +445,8 @@
                     ],
                     timeline: '4 months',
                     testimonial: 'Every customer now feels like our homepage was built just for them. Revenue exploded.',
-                    roi: '720%'
+                    roi: '720%',
+                    workflow: 'workflows/conversion-optimization.html'
                 },
                 {
                     id: 10,
@@ -408,7 +462,8 @@
                     ],
                     timeline: '6 months',
                     testimonial: 'We went from guessing creditworthiness to knowing it. Our loss ratio dropped while volume tripled.',
-                    roi: '1240%'
+                    roi: '1240%',
+                    workflow: 'workflows/credit-underwriting.html'
                 },
                 {
                     id: 11,
@@ -424,7 +479,8 @@
                     ],
                     timeline: '7 months',
                     testimonial: "Our robots now operate like a hive mind. It's mesmerizing to watch them orchestrate perfectly.",
-                    roi: '840%'
+                    roi: '840%',
+                    workflow: 'workflows/fleet-coordination.html'
                 },
                 {
                     id: 12,
@@ -440,7 +496,8 @@
                     ],
                     timeline: '3 months',
                     testimonial: 'We know exactly what to make, when to make it, and who should make it. Profits soared.',
-                    roi: '620%'
+                    roi: '620%',
+                    workflow: 'workflows/demand-forecasting.html'
                 },
                 {
                     id: 13,
@@ -456,7 +513,8 @@
                     ],
                     timeline: '10 months',
                     testimonial: 'Every student now learns at their own pace with their own path. Outcomes have never been better.',
-                    roi: '380%'
+                    roi: '380%',
+                    workflow: 'workflows/adaptive-learning.html'
                 },
                 {
                     id: 14,
@@ -472,7 +530,8 @@
                     ],
                     timeline: '8 months',
                     testimonial: 'Routes that took 3 hours now take 90 minutes. Fuel costs plummeted. Customers are ecstatic.',
-                    roi: '550%'
+                    roi: '550%',
+                    workflow: 'workflows/route-optimization.html'
                 },
                 {
                     id: 15,
@@ -488,7 +547,8 @@
                     ],
                     timeline: '11 months',
                     testimonial: 'We fix equipment before it breaks. Quality is near-perfect. Production never stops.',
-                    roi: '760%'
+                    roi: '760%',
+                    workflow: 'workflows/predictive-maintenance.html'
                 }
             ];
 
@@ -534,350 +594,9 @@
                         </div>
                     </section>
 
-                    {/* Industries Overview Section */}
-                    <section className="py-20 px-8 border-t border-white-10 bg-white-3">
 
 
-                        <div className="max-w-7xl mx-auto">
-                            <div className="text-center mb-16">
-                                <h2 className="text-4xl md:text-5xl font-light mb-4">
-                                    <span className="text-blue-accent">15 Industries</span>, Infinite Possibilities
-                                </h2>
-                                <p className="text-lg text-white/60 max-w-3xl mx-auto">
-                                    From molecules to money, soil to servers-our AI doesn't just optimize, it transforms.
-                                    Here's how we're revolutionizing each sector.
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Chemical</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Predictive R&D Acceleration</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI predictive modeling: 38% faster compound discovery, $6.2M annual R&D savings, 3.9% CAGR growth.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$5.82T</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">285%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 2L2 7v2h20V7L12 2zM4 11v8h2v-8H4zm5 0v8h2v-8H9zm5 0v8h2v-8h-2zm5 0v8h2v-8h-2zM2 21h20v2H2v-2z" fill="currentColor" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Banking & Finance</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Fraud Detection & Risk</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        Real-time AI prevents $42M in fraud, reduces false positives 90%, sub-200ms detection.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$33.5T</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">286%</div>
-                                            <div className="text-white/40">2Yr ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Real Estate</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Intelligent Property Management</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI automation: 2,500+ properties managed, 28% cost reduction, 7.2% CAGR through 2033.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$222B</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">210%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Healthcare & Biotech</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Administrative Automation</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI automation: 60% of investment focus, 36% physician adoption, 68% admin workload reduction (HIPAA-compliant).
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$72.1B</div>
-                                            <div className="text-white/40">Automation</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">275%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">IT & Technology</h3>
-                                    <div className="text-xs text-blue-accent mb-3">AI-Powered Customer Success</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        Intelligent automation: 85% faster support resolution, churn reduced 15% to 8%, $12B AI  services market.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$5.12B</div>
-                                            <div className="text-white/40">Banking AI</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">425%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Agriculture</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Precision Farming AI</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        IoT + AI analytics: 38% yield increase, 60% water savings, $3.2M profit boost, satellite-powered insights.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$2.1T</div>
-                                            <div className="text-white/40">Global Ag</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">390%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Clean Energy</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Smart Grid AI Optimization</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI grid management: 74% waste reduction, $12M savings, 99.8% uptime, real-time load balancing.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$1.5T</div>
-                                            <div className="text-white/40">Clean Tech</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">410%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Cybersecurity</h3>
-                                    <div className="text-xs text-blue-accent mb-3">AI Threat Detection</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI threat intelligence: 87-94% detection rate, 52% reduced workload, $2.2M breach cost savings (IBM 2024).
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$25.4B</div>
-                                            <div className="text-white/40">AI Sec</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">286%</div>
-                                            <div className="text-white/40">2Yr ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">E-commerce</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Conversion Optimization</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI personalization: 156% conversion increase, 3.2x order value, $28M revenue.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$6.3T</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">720%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3v-6a3 3 0 00-3-3H6a3 3 0 00-3 3v6a3 3 0 003 3z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Fintech</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Credit Underwriting</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        ML credit scoring: 82% more approvals, 65% lower defaults, $91M loan volume.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$310B</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">1240%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Robotics</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Autonomous Fleet Coordination</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI swarm intelligence: 310% throughput, 92% collision reduction, $14.7B warehouse robotics market.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$14.7B</div>
-                                            <div className="text-white/40">Warehouse</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">420%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Restaurant</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Demand Forecasting</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI demand prediction: 88% waste reduction, $4.2M profit, 23% labor savings.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$900B</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">620%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l9-5-9-5-9 5 9 5z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Education</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Personalized Learning</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI adaptive systems: 35% higher completion rates, 20% improvement on major platforms (Coursera, Khan Academy).
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$7.3T</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">380%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Transportation</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Route Optimization</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        AI route optimization: 44% fuel reduction, 96% on-time delivery, 18.5min saved/route.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$9.2T</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">550%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border border-white/10 bg-white/3 p-6 case-card">
-                                    <svg className="w-10 h-10 mb-3 text-blue-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                                    </svg>
-                                    <h3 className="text-xl font-semibold mb-2">Manufacturing</h3>
-                                    <div className="text-xs text-blue-accent mb-3">Predictive Maintenance</div>
-                                    <p className="text-white/70 text-xs leading-relaxed mb-4">
-                                        IoT + AI: 87% downtime reduction, 94% fewer defects, $24M annual savings.
-                                    </p>
-                                    <div className="flex justify-between pt-3 border-t border-white/10 text-xs">
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">$14T</div>
-                                            <div className="text-white/40">Market</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-blue-accent font-semibold">760%</div>
-                                            <div className="text-white/40">ROI</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="text-center">
-                                <div className="inline-block border border-blue-accent/30 bg-blue-accent/5 px-8 py-4">
-                                    <div className="text-3xl font-light text-blue-accent mb-1">$76+ Trillion</div>
-                                    <div className="text-sm text-white/60">Combined Market Opportunity Across 15 Industries</div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Case Studies Section */}
+                    {/* Detailed Success Stories Section */}
                     <section className="py-20 px-8">
                         <div className="max-w-7xl mx-auto w-full">
                             <div className="text-center mb-12">
@@ -948,6 +667,15 @@
                                             <p className="text-white/80 text-sm italic leading-relaxed">"{study.testimonial}"</p>
                                         </div>
 
+                                        {/* View Workflow Button */}
+                                        <div className="mb-6">
+                                            <a href={study.workflow} target="_blank" rel="noopener noreferrer"
+                                                className="workflow-btn">
+                                                ⚡ View Animated Workflow
+                                                <span className="arrow">→</span>
+                                            </a>
+                                        </div>
+
                                         {/* Timeline */}
                                         <div className="flex justify-between items-center text-xs text-white/40">
                                             <span>Timeline: {study.timeline}</span>
@@ -969,15 +697,15 @@
                                 </a>
                             </div>
                         </div>
-                    </section>
+                    </section >
 
                     {/* Footer */}
-                    <footer className="border-t border-white/10 py-12">
+                    < footer className="border-t border-white/10 py-12" >
                         <div className="max-w-6xl mx-auto px-8 text-center">
                             <p className="text-white/40 text-sm">© 2026 Autoneties. All rights reserved.</p>
                         </div>
-                    </footer>
-                </div>
+                    </footer >
+                </div >
             );
         };
 

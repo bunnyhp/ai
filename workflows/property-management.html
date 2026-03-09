@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Property Management Automation Workflow — Autoneties</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a0f0a;--bg-card:#261a12;--bg-card-h:#33221a;--accent:#e87461;--accent-g:rgba(232,116,97,0.25);--accent2:#f5c6a5;--text:#e2e8f0;--text-m:#94a3b8;--text-d:#64748b;--border:rgba(232,116,97,0.15)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,var(--accent-g),transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(245,198,165,0.06),transparent 50%);z-index:0;pointer-events:none}
+.nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;background:rgba(26,15,10,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:100;display:flex;justify-content:space-between;align-items:center}
+.nav a{color:var(--accent);text-decoration:none;font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:.05em;transition:color .3s}.nav a:hover{color:var(--text)}
+.pbar{position:fixed;top:56px;left:0;right:0;height:3px;background:rgba(232,116,97,.1);z-index:99}
+.pfill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .5s ease;box-shadow:0 0 10px var(--accent-g)}
+.hero{position:relative;z-index:1;min-height:60vh;display:flex;align-items:center;justify-content:center;padding:8rem 2rem 4rem;text-align:center}
+.hero-c{max-width:800px}
+.badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border:1px solid var(--border);border-radius:100px;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;color:var(--accent);margin-bottom:2rem;opacity:0;animation:fd .8s ease .2s forwards}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;opacity:0;animation:fu 1s ease .4s forwards}
+.hero h1 span{color:var(--accent);font-weight:600}
+.hero p{font-size:1.15rem;color:var(--text-m);max-width:600px;margin:0 auto;line-height:1.8;opacity:0;animation:fu 1s ease .6s forwards}
+.steps{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:2rem 2rem 4rem}
+.sh{font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:.2em;color:var(--text-d);margin-bottom:3rem;text-align:center}
+.step{display:flex;gap:2rem;align-items:flex-start;opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.22,1,.36,1)}
+.step.v{opacity:1;transform:translateY(0)}
+.si{display:flex;flex-direction:column;align-items:center;min-width:50px}
+.sd{width:50px;height:50px;border-radius:50%;background:var(--bg-card);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;z-index:2;transition:all .5s ease}
+.step.v .sd{border-color:var(--accent);box-shadow:0 0 20px var(--accent-g)}
+.sc{width:2px;height:0;background:linear-gradient(to bottom,var(--accent),var(--accent2));transition:height .6s ease .3s;opacity:.4}
+.step.v .sc{height:60px}
+.sx{flex:1;background:var(--bg-card);border:1px solid var(--border);padding:1.8rem;cursor:pointer;transition:all .4s ease;margin-bottom:1rem}
+.sx:hover{background:var(--bg-card-h);border-color:var(--accent);box-shadow:0 8px 30px rgba(0,0,0,.3);transform:translateX(4px)}
+.st{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.sn{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--accent);letter-spacing:.1em}
+.ab{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.05em}
+.ab-ai{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
+.ab-s{background:rgba(232,116,97,.15);color:var(--accent);border:1px solid rgba(232,116,97,.3)}
+.ab-h{background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.3)}
+.ab-x{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.3)}
+.sl{font-size:1.2rem;font-weight:600;margin-bottom:.4rem}
+.ss{font-size:.9rem;color:var(--text-m);line-height:1.6}
+.det{max-height:0;overflow:hidden;transition:max-height .5s ease;border-top:0 solid var(--border)}
+.det.open{max-height:200px;padding-top:1rem;margin-top:1rem;border-top-width:1px}
+.det p{font-size:.85rem;color:var(--text-d);line-height:1.7}
+.out{position:relative;z-index:1;max-width:900px;margin:2rem auto 4rem;padding:0 2rem;opacity:0;transform:scale(.95);transition:all 1s cubic-bezier(.22,1,.36,1)}
+.out.v{opacity:1;transform:scale(1)}
+.oc{background:linear-gradient(135deg,var(--accent-g),rgba(245,198,165,.05));border:1px solid var(--accent);padding:3rem;text-align:center;position:relative;overflow:hidden}
+.oc::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,var(--accent-g),transparent 70%);opacity:0;transition:opacity .5s ease}
+.out.v .oc::before{opacity:1}
+.oi{font-size:3rem;margin-bottom:1rem}.out h2{font-size:1.8rem;font-weight:300;margin-bottom:1rem}.out h2 span{color:var(--accent);font-weight:700}
+.out p{color:var(--text-m);font-size:1rem;max-width:500px;margin:0 auto}
+.om{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+.omv{font-size:1.8rem;font-weight:300;color:var(--accent);font-family:'Space Mono',monospace}
+.oml{font-size:.7rem;color:var(--text-d);letter-spacing:.1em;margin-top:.3rem}
+.rb{position:fixed;bottom:2rem;right:2rem;background:var(--accent);color:#fff;border:none;width:56px;height:56px;border-radius:50%;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px var(--accent-g);transition:all .3s ease;z-index:100;display:flex;align-items:center;justify-content:center}
+.rb:hover{transform:scale(1.1)}
+@keyframes fu{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fd{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.step{opacity:1;transform:none}.out{opacity:1;transform:none}.sc{height:60px}}
+@media(max-width:640px){.hero{padding:7rem 1.5rem 3rem;min-height:50vh}.hero h1{font-size:2rem}.steps{padding:1rem 1.5rem 3rem}.step{gap:1rem}.sx{padding:1.2rem}.om{grid-template-columns:1fr}.oc{padding:2rem}}
+</style>
+</head>
+<body>
+<div class="nav"><a href="../case-studies.html">← BACK TO CASE STUDIES</a><span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--text-d)">AUTONETIES WORKFLOW</span></div>
+<div class="pbar"><div class="pfill" id="pf"></div></div>
+<section class="hero"><div class="hero-c">
+<div class="badge">🏢 REAL ESTATE</div>
+<h1>Property Management <span>Automation</span></h1>
+<p>Managing 2,500+ properties required massive overhead, slow tenant response times, and inefficient maintenance scheduling.</p>
+</div></section>
+<section class="steps"><div class="sh">WORKFLOW — 6 MANAGEMENT STAGES</div>
+<div class="step" data-d="Multi-channel intake system captures requests from mobile app, email, SMS, and phone. AI transcribes voice calls and extracts key details automatically."><div class="si"><div class="sd">📱</div><div class="sc"></div></div><div class="sx" onclick="td(this)"><div class="st"><span class="sn">STEP 01</span><span class="ab ab-h">👤 HUMAN</span></div><div class="sl">Tenant Request Received</div><div class="ss">Tenant submits maintenance request via app, email, or phone — captured in unified system.</div><div class="det"><p></p></div></div></div>
+<div class="step" data-d="NLP models classify requests into 30+ categories. Urgency scoring considers safety risk, tenant history, unit condition, and lease terms."><div class="si"><div class="sd">🤖</div><div class="sc"></div></div><div class="sx" onclick="td(this)"><div class="st"><span class="sn">STEP 02</span><span class="ab ab-ai">🤖 AI</span></div><div class="sl">AI Classification & Priority</div><div class="ss">AI categorizes request type, assesses urgency, and assigns priority level in seconds.</div><div class="det"><p></p></div></div></div>
+<div class="step" data-d="Scheduling engine considers contractor availability, proximity, skillset, cost, and tenant preferred times. Automated dispatch with real-time tracking."><div class="si"><div class="sd">📅</div><div class="sc"></div></div><div class="sx" onclick="td(this)"><div class="st"><span class="sn">STEP 03</span><span class="ab ab-s">⚙️ SYSTEM</span></div><div class="sl">Auto-Schedule Maintenance</div><div class="ss">System matches available contractors, schedules service, and notifies all parties automatically.</div><div class="det"><p></p></div></div></div>
+<div class="step" data-d="IoT sensors on HVAC, plumbing, and electrical systems feed ML models that predict failures 2-4 weeks in advance, preventing emergency repairs."><div class="si"><div class="sd">🔮</div><div class="sc"></div></div><div class="sx" onclick="td(this)"><div class="st"><span class="sn">STEP 04</span><span class="ab ab-ai">🤖 AI</span></div><div class="sl">Predictive Failure Detection</div><div class="ss">AI analyzes equipment data to predict failures before they happen, scheduling preventive maintenance.</div><div class="det"><p></p></div></div></div>
+<div class="step" data-d="Models analyze comparable rents, tenant payment history, occupancy trends, and seasonal patterns to recommend optimal pricing and renewal strategies."><div class="si"><div class="sd">📊</div><div class="sc"></div></div><div class="sx" onclick="td(this)"><div class="st"><span class="sn">STEP 05</span><span class="ab ab-ai">🤖 AI</span></div><div class="sl">Lease Optimization Engine</div><div class="ss">AI analyzes market data and tenant behavior to optimize lease terms and renewal pricing.</div><div class="det"><p></p></div></div></div>
+<div class="step" data-d="Real-time dashboards show NOI trends, maintenance costs, tenant satisfaction scores, and occupancy forecasts across the entire portfolio."><div class="si"><div class="sd">📈</div></div><div class="sx" onclick="td(this)"><div class="st"><span class="sn">STEP 06</span><span class="ab ab-x">🤝 HYBRID</span></div><div class="sl">Performance Analytics</div><div class="ss">Property managers review AI-generated insights dashboards to optimize portfolio performance.</div><div class="det"><p></p></div></div></div>
+</section>
+<section class="out" id="out"><div class="oc">
+<div class="oi">🏆</div><h2>Result: <span>Operations Transformed</span></h2>
+<p>AI-powered property management deployed across 2,500+ units in 5 months.</p>
+<div class="om"><div><div class="omv">72%</div><div class="oml">COST REDUCTION</div></div><div><div class="omv"><15min</div><div class="oml">AVG RESPONSE TIME</div></div><div><div class="omv">95%</div><div class="oml">TENANT SATISFACTION</div></div></div>
+</div></section>
+<button class="rb" onclick="re()" title="Replay" aria-label="Replay workflow animation">⟳</button>
+<script>
+document.querySelectorAll('.step').forEach(s=>{const p=s.querySelector('.det p');if(p)p.textContent=s.dataset.d||''});
+function td(e){e.querySelector('.det').classList.toggle('open')}
+const S=document.querySelectorAll('.step'),O=document.getElementById('out'),P=document.getElementById('pf'),T=S.length;let V=0;
+const ob=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting){const i=Array.from(S).indexOf(n.target);setTimeout(()=>{n.target.classList.add('v');V=Math.max(V,i+1);P.style.width=((V/T)*100)+'%'},i*150)}})},{threshold:.2});
+S.forEach(s=>ob.observe(s));
+new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting){n.target.classList.add('v');P.style.width='100%'}})},{threshold:.3}).observe(O);
+function re(){V=0;P.style.width='0%';S.forEach(s=>{s.classList.remove('v');s.querySelector('.det').classList.remove('open')});O.classList.remove('v');window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>{S.forEach((s,i)=>{setTimeout(()=>s.classList.add('v'),(i+1)*400)});setTimeout(()=>{O.classList.add('v');P.style.width='100%'},(T+1)*400)},800)}
+</script>
+</body>
+</html>
